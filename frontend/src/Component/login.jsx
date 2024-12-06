@@ -1,14 +1,50 @@
-import React from "react";
+import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import cook from "../images/cook.png";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Login } from "../Action/authAction";
+import { toast } from "react-hot-toast";
+import { Navigate } from "react-router-dom";
 
-function Login() {
+function LoginUser() {
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const loading = useSelector((state) => state.auth.loading);
+  const authenticated = useSelector((state) => state.auth.authenticated);
 
-  
+  useEffect(() => {
+    if (loading === true) {
+      toast.loading("Checking...", { id: "checking" });
+    } else if (loading === false) {
+      toast.dismiss("checking");
+    }
+  }, [loading]);
+
+  const handleLogin = async (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
+
+    if (!email) {
+      toast.error("Email required..!", { id: "email" });
+    } else if (!password) {
+      toast.error("Password required..!", { id: "pwd" });
+    } else {
+      const form = { email, password };
+      dispatch(Login(form));
+      setEmail("");
+      setPassword("");
+    }
+  };
+
+  if (authenticated) {
+    return <Navigate to="/home" />;
+  }
+
   return (
     <Box
       sx={{
@@ -31,13 +67,14 @@ function Login() {
           textAlign: "center",
         }}
       >
-        <img src={cook} style={{ width: "50%", height: "auto" }} alt="cook"/>
+        <img src={cook} style={{ width: "50%", height: "auto" }} alt="cook" />
 
         <Typography
           variant="h6"
           sx={{
             fontWeight: "300",
             color: "#333",
+            mb: "5px",
             justifySelf: "left",
           }}
         >
@@ -46,6 +83,9 @@ function Login() {
 
         <TextField
           label="Email address"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           variant="outlined"
           fullWidth
           sx={{ marginBottom: 2 }}
@@ -53,17 +93,18 @@ function Login() {
 
         <TextField
           label="Password"
-          variant="outlined"
           type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          variant="outlined"
           fullWidth
-          error
-          helperText="Please enter a password"
           sx={{ marginBottom: 3 }}
         />
 
         <Button
           variant="contained"
           fullWidth
+          onClick={handleLogin} // Pass handleLogin without wrapping it in an arrow function
           sx={{
             backgroundColor: "#ff6f61",
             "&:hover": { backgroundColor: "#e45d51" },
@@ -87,4 +128,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginUser;

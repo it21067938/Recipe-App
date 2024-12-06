@@ -6,9 +6,20 @@ import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import LogoutIcon from "@mui/icons-material/Logout";
 import cook from "../images/cook.png";
+import { useDispatch } from "react-redux";
+import { signout } from "../Action/authAction";
 
 function Header() {
+
+  const dispatch = useDispatch();
+
   const [activeTab, setActiveTab] = useState("home");
+
+  const logout = () => {
+    dispatch(signout());
+};
+
+
 
   const tabs = [
     { label: "HOME", value: "home", link: "/home" },
@@ -57,7 +68,7 @@ function Header() {
           ))}
         </Box>
 
-        <IconButton sx={{ color: "#000" }}>
+        <IconButton sx={{ color: "#000" }} onClick={logout}>
           <LogoutIcon />
         </IconButton>
       </Toolbar>

@@ -8,13 +8,16 @@ import Typography from "@mui/material/Typography";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Modal from "@mui/material/Modal";
 import favourite from './favourite';
+import { useDispatch, useSelector } from "react-redux";
 
 function Home() {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
   const [mealData, setMealData] = useState([]);
   const [selectedItem, setSelectedItem] = useState("");
   const [selectedMeal, setSelectedMeal] = useState(null);
   const [open, setOpen] = useState(false);
-  
+  console.log(user);
   const addFav = (image, name) => {
     console.log("Favorite Added:", image, name);
   };

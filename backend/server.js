@@ -1,11 +1,11 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const dotenv = require("dotenv");
+import express from "express";
+import mongoose from "mongoose";
+import bodyParser from "body-parser";
+import cors from "cors";
+import dotenv from "dotenv";
 
 const app = express();
-require("dotenv").config();
+dotenv.config();
 
 const PORT = process.env.PORT || 8070;
 
@@ -28,3 +28,8 @@ mongoose.connect(URL, {
 app.listen(PORT, () => {
     console.log(`Server is up and running on port: ${PORT} 🚀🚀🚀`);
 });
+
+
+
+import userRouter from "./routes/UserRoute.js";
+app.use("/user", userRouter);
