@@ -1,10 +1,11 @@
 import FavouriteRecipe from "../model/FavouriteRecipe.js";
 
 export const addRecipe = async (req, res, next) => {
-  const { UID, image, name } = req.body;
+  const { UID, idMeal, image, name } = req.body;
 
   const favouriteRecipe = new FavouriteRecipe({
     UID,
+    idMeal,
     image,
     name,
   });

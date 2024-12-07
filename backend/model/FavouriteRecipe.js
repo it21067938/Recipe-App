@@ -5,6 +5,10 @@ const favirouteRecipeShema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    idMeal: {
+        type: String,
+        required: true,
+    },
     image: {
         type: String,
         required: true,

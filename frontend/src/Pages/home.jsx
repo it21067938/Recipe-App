@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Header from "../Component/header";
 import Box from "@mui/material/Box";
@@ -17,18 +17,39 @@ function Home() {
   const [selectedMeal, setSelectedMeal] = useState(null);
   const [open, setOpen] = useState(false);
 
-  const addFav = (UID, image, name) => {
+  const [favorites, setFavorites] = useState([]);
+  useEffect(() => {
+    function getfav() {
+      axios
+        .get("http://localhost:8070/recipe/view")
+        .then((res) => {
+          setFavorites(res.data);
+        })
+        .catch((err) => {
+          alert(err.message);
+        });
+    }
+    getfav();
+  }, []);
+
+  const addFav = (UID, idMeal, image, name) => {
+    const isFavorite = favorites.some((fav) => fav.idMeal === idMeal);
     console.log(UID, "Favorite Added:", image, name);
+
+    if (isFavorite) {
+      alert("This meal is already in your favorites!");
+      return;
+    }
 
     const ADD_Faviourite = {
       UID,
+      idMeal,
       image,
       name,
     };
     axios
       .post("http://localhost:8070/recipe/add", ADD_Faviourite)
       .then(() => {
-        
         alert("Added FAV");
       })
       .catch((err) => {
@@ -56,9 +77,9 @@ function Home() {
   const fetchMealDetails = (idMeal) => {
     const detailAPI = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`;
     axios
-    .get(detailAPI)
-    .then((res) => {
-      setSelectedMeal(res.data.meals[0]);
+      .get(detailAPI)
+      .then((res) => {
+        setSelectedMeal(res.data.meals[0]);
         setOpen(true);
       })
       .catch((err) => console.error("Error fetching meal details:", err));
@@ -117,7 +138,7 @@ function Home() {
               borderRadius: "20px",
               border: "1px solid #ccc",
               outline: "none",
-              marginRight: "50px"
+              marginRight: "50px",
             }}
           />
         </Box>
@@ -140,7 +161,12 @@ function Home() {
                 Soups
                 <FavoriteBorderIcon
                   onClick={() =>
-                    addFav(user.UID, meal.strMealThumb, meal.strMeal)
+                    addFav(
+                      user.UID,
+                      meal.idMeal,
+                      meal.strMealThumb,
+                      meal.strMeal
+                    )
                   }
                   sx={{
                     color: "pink",
@@ -154,7 +180,7 @@ function Home() {
                 onClick={() => fetchMealDetails(meal.idMeal)}
                 sx={{ cursor: "pointer", color: "#000" }}
               >
-                {meal.strMeal}
+                {meal.strMeal} {meal.idMeal}
               </Typography>
             </Grid>
           ))}
