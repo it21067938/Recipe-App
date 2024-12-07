@@ -61,6 +61,7 @@ function Favourite() {
           <Grid item xs={6} sm={4} md={3} key={e._id}>
             <img
               src={e.image}
+              alt=""
               style={{ width: "100%", height: "auto", objectFit: "cover" }}
             />
             <Typography
