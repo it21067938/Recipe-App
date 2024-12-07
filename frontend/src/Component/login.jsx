@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -27,7 +26,7 @@ function LoginUser() {
   }, [loading]);
 
   const handleLogin = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
+    e.preventDefault(); 
 
     if (!email) {
       toast.error("Email required..!", { id: "email" });
@@ -104,7 +103,7 @@ function LoginUser() {
         <Button
           variant="contained"
           fullWidth
-          onClick={handleLogin} // Pass handleLogin without wrapping it in an arrow function
+          onClick={handleLogin} 
           sx={{
             backgroundColor: "#ff6f61",
             "&:hover": { backgroundColor: "#e45d51" },

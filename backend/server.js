@@ -33,3 +33,6 @@ app.listen(PORT, () => {
 
 import userRouter from "./routes/UserRoute.js";
 app.use("/user", userRouter);
+
+import addfav from "./routes//FavirouteRecipeRoute.js";
+app.use("/recipe", addfav);

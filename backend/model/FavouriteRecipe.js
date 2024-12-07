@@ -1,14 +1,18 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const favirouteRecipeShema = new mongoose.Schema({
-    img : {
+    UID: {
         type: String,
         required: true,
     },
-    name : {
+    image: {
+        type: String,
+        required: true,
+    },
+    name: {
         type: String,
         required: true,
     }
-})
+});
 
-module.exports = mongoose.model("FavirouteRecipe", favirouteRecipeShema);
+export default mongoose.model("FavirouteRecipe", favirouteRecipeShema);

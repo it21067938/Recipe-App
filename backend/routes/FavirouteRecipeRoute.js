@@ -1,16 +1,14 @@
 import express from "express";
 import {
-  UserRegister,
-  Signin,
-  Signout,
-  tokenRefresh,
-} from "../controller/UserController.js";
+  addRecipe,
+  viewfav,
+  removeFAV,
+} from "../controller/FavirouteRecipeController.js";
 
 const router = express.Router();
 
-router.post("/add", UserRegister);
-router.post("/", Signin);
-router.delete("signout", Signout);
-router.post("/Token", tokenRefresh);
+router.post("/add", addRecipe);
+router.get("/view", viewfav);
+router.delete("/remove/:_id", removeFAV);
 
 export default router;

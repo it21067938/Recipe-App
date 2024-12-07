@@ -166,7 +166,7 @@ function Signup() {
           />
         </Box>
 
-        {/* Button */}
+       
         <Button
           type="submit"
           variant="contained"
@@ -184,7 +184,6 @@ function Signup() {
           Create Account
         </Button>
 
-        {/* Footer Links */}
         <Typography variant="body2" sx={{ mt: 3 }}>
           Already have an account?{" "}
           <Link href="/" sx={{ color: "#ff6f61", fontWeight: "bold" }}>
