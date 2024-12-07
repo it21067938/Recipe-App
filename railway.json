@@ -1,4 +1,14 @@
 {
-    "build": "cd backend && npm install && npm run build && cd ../frontend && npm install && npm run build",
-    "start": "cd backend && npm run start"
+    "build": {
+      "commands": [
+        "cd backend && npm install",
+        "cd backend && npm run build",
+        "cd ../frontend && npm install",
+        "cd ../frontend && npm run build"
+      ]
+    },
+    "start": {
+      "command": "cd backend && npm start"
+    }
   }
+  
