@@ -182,7 +182,7 @@ function Home() {
                 onClick={() => fetchMealDetails(meal.idMeal)}
                 sx={{ cursor: "pointer", color: "#000" }}
               >
-                {meal.strMeal} {meal.idMeal}
+                {meal.strMeal}
               </Typography>
             </Grid>
           ))}
