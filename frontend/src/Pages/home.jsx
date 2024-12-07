@@ -51,6 +51,8 @@ function Home() {
       .post("http://localhost:8070/recipe/add", ADD_Faviourite)
       .then(() => {
         alert("Added FAV");
+        // Update the state locally 
+        setFavorites((prevFavorites) => [...prevFavorites, ADD_Faviourite]);
       })
       .catch((err) => {
         alert(err);
